@@ -6,9 +6,17 @@
     "dev": "next ./src",
     "build": "next build",
     "start": "next start",
+    "lint": "run-p -l -c --aggregate-output lint:*",
+    "lint:eslint": "eslint . --ext .js,.jsx,.ts,.tsx ",
+    "lint:prettier": "prettier --check .",
+    "fix": "run-s fix:prettier fix:eslint",
+    "fix:eslint": "lint:eslint --fix ",
+    "fix:prettier": "lint:prettier -- --write",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "keywords": [],
   "author": "",
@@ -22,11 +30,36 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn lint"
+    }
+  },
+  "push-hook": {
+    "*.@(ts|tsx)": [
+      "yarn lint",
+      "type-check",
+      "git add ."
+    ]
+  },
+  "lint-staged": {
+    "*.@(ts|tsx)": [
+      "yarn fix:prettier --no-verify ",
+      "yarn fix:eslint",
+      "git add ."
+    ]
+  },
   "devDependencies": {
+    "@babel/core": "^7.15.8",
     "@emotion/babel-plugin": "^11.3.0",
     "@emotion/eslint-plugin": "^11.5.0",
     "@emotion/jest": "^11.5.0",
     "@next/env": "^11.1.2",
+    "@storybook/addon-actions": "^6.3.12",
+    "@storybook/addon-essentials": "^6.3.12",
+    "@storybook/addon-links": "^6.3.12",
+    "@storybook/react": "^6.3.12",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.1",
     "@types/react": "^17.0.30",
@@ -34,6 +67,7 @@
     "@typescript-eslint/parser": "^5.1.0",
     "autoprefixer": "^10.3.7",
     "babel-jest": "^27.3.1",
+    "babel-loader": "^8.2.2",
     "eslint": "^8.0.1",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
