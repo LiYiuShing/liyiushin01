@@ -39,3 +39,4 @@ public/feed.xml
 .vercel
 .env
 .vscode
+dist
