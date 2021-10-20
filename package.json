@@ -10,8 +10,8 @@
     "lint:eslint": "eslint . --ext .js,.jsx,.ts,.tsx ",
     "lint:prettier": "prettier --check .",
     "fix": "run-s fix:prettier fix:eslint",
-    "fix:eslint": "lint:eslint --fix ",
-    "fix:prettier": "lint:prettier -- --write",
+    "fix:eslint": "npm run lint:eslint --fix ",
+    "fix:prettier": "npm run lint:prettier -- --write",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -33,20 +33,20 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "yarn lint"
+      "pre-push": "npm run lint"
     }
   },
   "push-hook": {
     "*.@(ts|tsx)": [
-      "yarn lint",
+      "npm run lint",
       "type-check",
       "git add ."
     ]
   },
   "lint-staged": {
     "*.@(ts|tsx)": [
-      "yarn fix:prettier --no-verify ",
-      "yarn fix:eslint",
+      "npm run fix:prettier --no-verify ",
+      "npm run fix:eslint",
       "git add ."
     ]
   },
@@ -76,8 +76,11 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.1",
-    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-react-hooks": "^4.2.1-alpha-02f411578-20211019",
+    "husky": "^7.0.2",
     "jest": "^27.3.1",
+    "lint-staged": "^10.5.4",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.3.9",
     "prettier": "^2.4.1",
     "tailwindcss": "^2.2.17",

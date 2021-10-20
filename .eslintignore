@@ -9,3 +9,6 @@ cypress/integration/sample_spec.ts
 .eslintignore
 .prettierignore
 .prettierrc.js
+dist
+stories
+tailwind.*
